@@ -1,0 +1,191 @@
+---
+import SocialButtons from "@/components/SocialButtons.astro"
+---
+
+<section id="hero" class="hero">
+  <div class="background">
+    <div class="container-title">
+        <h1>Fran Pazos</h1>
+        <h2>Software Developer</h2>
+        <SocialButtons class="social-buttons" />
+    </div>
+    <div class="cv-container">
+        <a href="/public/Assets/FranPazosCV.pdf" target="_blank">Download CV</a>
+    </div>
+    </div>
+</section>
+
+<script type="module">
+    import { gsap } from 'https://cdn.skypack.dev/gsap';
+  
+    function initAnimation() {
+      gsap.set(['.name', 'h1', 'h2'], { y: 100, opacity: 0, visibility: 'hidden' });
+  
+      gsap.to(['.name', 'h1', 'h2'], {
+        opacity: 1,
+        y: 0,
+        visibility: 'visible',
+        ease: 'power3.out',
+        duration: 2.5,
+        stagger: 0.3,
+        delay: 0.2,
+      });
+    }
+  
+    document.addEventListener('DOMContentLoaded', initAnimation);
+</script>
+
+<style>
+    .hero {
+        position: relative;
+        width: 100%;
+        height: 800px; 
+    }
+
+    .background {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
+        position: relative;
+        background-attachment: fixed;
+        width: 100%; 
+        height: 100vh; 
+        background-image: url("public/img/volcanic-background.jpeg");
+        background-size: cover;
+        background-repeat: no-repeat; 
+        background-position: center;
+        right: 0px;
+        left: 0px;
+        top: 0;
+    }
+
+    .container-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 4rem;
+        font-weight: 800;
+        background-color: #eb6904;
+        background-image: linear-gradient(225deg, #784BA0 10%, #eb7b04 70%, #eb6904 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        transition: all .2s;
+    }
+
+    h2 {
+        font-size: 2.5rem; 
+        font-weight: 800;
+        background-color: #eb6904;
+        background-image: linear-gradient(225deg, #eb6904 10%, #eb7b04 70%, #784BA0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        transition: all .2s; 
+   }
+
+   .name{
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 2.1rem;
+    }
+   
+    body.open h1, body.open h2, body.open .name, body.open .social-buttons  {
+        display: none;
+    }
+
+   .hand-icon {
+        animation: wave  2.5s infinite;
+        transform-origin: 70% 70%;
+        display: inline-block;
+        font-size: 2rem;
+    }
+
+    .cv-container{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 20px 0 0 0;
+     }
+
+     .cv-container p{
+          color: #ffffff;
+          text-align: center;
+     }
+
+ 
+     .cv-container a{
+          width: 150px;
+          text-align: center;
+          color: #13151a;
+          font-weight: 800;
+          text-decoration: none;
+          background-color: #eb6904;
+          padding: 15px;
+          border-radius: 20px;
+          cursor: pointer;
+          box-shadow: rgba(138, 137, 137, 0.405) 0px 5px 15px 0px;
+          transition: background-color 0.3s ease, transform 0.3s ease, background-image 0.3s ease;
+     }
+     .cv-container a:hover {
+          background-image: linear-gradient(225deg, #eb6904 0%, #784BA0 50%, #2B86C5 100%);
+          transform: scale(1.1); 
+          color: #ffffff;
+     }
+
+   @media(min-width:768px){
+    h1{
+        font-size: 5rem;
+        letter-spacing: -6px;
+    }
+    h2{
+        font-size: 3rem;
+    }
+    }
+
+   @media(min-width:1024px){
+    h1{
+        font-size: 8rem;
+        letter-spacing: -6px;
+    }
+    h2{
+        font-size: 3.5rem;
+    }
+    
+    @keyframes wave {
+        0% {
+            transform: rotate(0deg);
+        }
+        10% {
+            transform: rotate(14deg);
+        }
+        20% {
+            transform: rotate(-8deg);
+        }
+        30% {
+            transform: rotate(14deg);
+        }
+        40% {
+            transform: rotate(-4deg);
+        }
+        50% {
+            transform: rotate(10deg);
+        }
+        60% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(0deg);
+        }
+    }
+  }
+</style>
