@@ -6,7 +6,7 @@ export const EXPERIENCE = [
     startDate: "Agosto 2024",
     endDate: "Current",
     description:
-      "Rediseño del Home en WordPress utilizando Elementor, implementando un slider interactivo y nuevas secciones. Creación de nuevas páginas de contenido y modificación del footer, agregando una nueva sección. Aseguré la responsividad del sitio para una mejor experiencia en dispositivos móviles.",
+      "I work on the PayCargo web app, the leader in online payments for the cargo industry. I am part of a global engineering team responsible for developing new features, fixing bugs, and maintaining the platform. I have the opportunity to work with a wide range of technologies on the front end, back end, and infrastructure. We use React, Angular, Express, SQL, Azure Data Studio, and more.",
   },
   {
     title: "Star Wash",

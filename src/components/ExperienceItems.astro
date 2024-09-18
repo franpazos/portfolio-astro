@@ -3,18 +3,24 @@ const {title, position, url, startDate, endDate,  description = [] } = Astro.pro
 
 ---
 
-<div class="experience-item">784BA0
+<div class="experience-item">
     <div class="dot"></div>
     <div class="header-container">
         <div>
-            <h3>{title}</h3>
+            {url ? (
+                <a href={url}>
+                    <h3>{title}</h3>
+                </a>
+            ) : (
+                <h3>{title}</h3>
+            )}
             <h4>{position}</h4>
         </div>
         <time>{endDate ? `${startDate} - ${endDate}` : startDate}</time>
     </div>
     <p>{description}</p>
-    {url && <a href={url}>Link</a>}
-</div> 
+</div>
+ 
 
 <style>
     .experience-item {
@@ -53,6 +59,11 @@ const {title, position, url, startDate, endDate,  description = [] } = Astro.pro
         padding-bottom: 0.30rem;
     }
 
+    h3 {
+        font-size: 1.5rem;
+        color: #eb6904;
+    }
+
     h4{
         font-weight: normal;
     }
@@ -61,14 +72,9 @@ const {title, position, url, startDate, endDate,  description = [] } = Astro.pro
         color: #d1d5db; 
     }
 
-    a{
-        color: #eb6904;
-        font-size: 1.090rem;
-    }
-
     a:hover{
-        color: #2B86C5;
-        text-decoration: underline;
+        text-decoration: none;
+        cursor: pointer;
     }
 
     
