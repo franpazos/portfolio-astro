@@ -2,9 +2,9 @@ export const PROJECTS = [
   {
     slug: "mentalia",
     date: "March 2024",
-    image: "/public/Assets/mentalia/mentalia-logo.png",
-    image2: "/public/Assets/mentalia/iPhone13.png",
-    imageD: "/public/Assets/mentalia/iPhone13.png",
+    image: "/Assets/mentalia/mentalia-logo.png",
+    image2: "/Assets/mentalia/iPhone13.png",
+    imageD: "/Assets/mentalia/iPhone13.png",
     title: "Mentalia",
     description: `Mental wellness app with emotional tracker, psychologist access and a
         community platform. Full-stack MERN application.`,
