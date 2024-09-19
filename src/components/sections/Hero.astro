@@ -142,7 +142,7 @@ import SocialButtons from "@/components/SocialButtons.astro"
           color: #ffffff;
      }
 
-   @media(min-width:768px){
+   @media(max-width:768px){
     h1{
         font-size: 5rem;
         letter-spacing: -6px;
@@ -150,9 +150,11 @@ import SocialButtons from "@/components/SocialButtons.astro"
     h2{
         font-size: 3rem;
     }
+    .background{
+        background-image: url("/Assets/mobile_volcanic-background.png");
     }
-
-   @media(min-width:1024px){
+   }
+   @media(max-width:1024px){
     h1{
         font-size: 8rem;
         letter-spacing: -6px;
