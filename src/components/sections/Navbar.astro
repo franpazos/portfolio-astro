@@ -17,11 +17,11 @@ import SocialButtons from '../SocialButtons.astro'
               if (href.startsWith('#')) {
                 event.preventDefault();
 
-                // Verifica si ya estamos en la página principal
+                // Verifies if we are already on the home page
                 if (window.location.pathname !== '/') {
                   window.location.href = `/${href}`;
                 } else {
-                  // Si ya estamos en la página principal, desplázate al elemento con el id correspondiente
+                  // If we are already on the home page, scroll to the element with the corresponding id
                   const targetElement = document.querySelector(href);
                   if (targetElement) {
                     targetElement.scrollIntoView({ behavior: 'smooth' });
@@ -35,13 +35,11 @@ import SocialButtons from '../SocialButtons.astro'
   document.addEventListener('DOMContentLoaded', closeMenuOnClick);
 
   const navigateToHome = (event) => {
-    event.preventDefault(); // Previene el comportamiento por defecto del enlace
+    event.preventDefault(); // Prevents the default behavior of the link
 
-    // Verifica si ya estamos en la página principal
     if (window.location.pathname !== '/') {
       window.location.href = '/';
     } else {
-      // Si ya estamos en la página principal, desplázate al elemento con el id 'hero'
       const heroElement = document.getElementById('hero');
       if (heroElement) {
         heroElement.scrollIntoView({ behavior: 'smooth' });
@@ -54,12 +52,12 @@ import SocialButtons from '../SocialButtons.astro'
   <button class="navbar-burger" onclick="toggleMenu()"></button>
       <div class="menu">
         <nav>
-          <a href="/" style="animation-delay: 0.1s"><img class="icon" src="/icons/icon-home.svg">Home</a>
-          <a href="#experience" style="animation-delay: 0.1s"><img class="icon" src="/icons/icon-tools.svg">Experience</a>
-          <a href="#technologies" style="animation-delay: 0.3s"><img class="icon" src="/icons/icon-education.svg">Tech</a>
-          <a href="#projects" style="animation-delay: 0.2s"><img class="icon" src="/icons/icon-code.svg">Projects</a>
-          <a href="#about" style="animation-delay: 0.1s"><img class="icon" src="/icons/icon-user.svg">About</a>
-          <a href="#contact" style="animation-delay: 0.5s"><img class="icon" src="/icons/icon-mail.svg">Contact</a>
+          <a href="/" style="animation-delay: 0.1s"><img class="icon" src="/icons/icon-home.svg" alt="Home Icon">Home</a>
+          <a href="#experience" style="animation-delay: 0.1s"><img class="icon" src="/icons/icon-tools.svg" alt="Experiece Icon">Experience</a>
+          <a href="#technologies" style="animation-delay: 0.3s"><img class="icon" src="/icons/icon-education.svg" alt="Tech Icon">Tech</a>
+          <a href="#projects" style="animation-delay: 0.2s"><img class="icon" src="/icons/icon-code.svg" alt="Projects Icon">Projects</a>
+          <a href="#about" style="animation-delay: 0.1s"><img class="icon" src="/icons/icon-user.svg" alt="About Icon">About</a>
+          <a href="#contact" style="animation-delay: 0.5s"><img class="icon" src="/public/icons/icon-mail.svg" alt="Contact Icon">Contact</a>
           <div class="social-buttons">
             <SocialButtons />
           </div>
