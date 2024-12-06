@@ -8,7 +8,7 @@ const {title, position, url, startDate, endDate,  description = [] } = Astro.pro
     <div class="header-container">
         <div>
             {url ? (
-                <a href={url}>
+                <a href={url} target="_blank" rel="noopener noreferrer">
                     <h3>{title}</h3>
                 </a>
             ) : (
