@@ -10,6 +10,9 @@ export const PROJECTS = [
     title: "Mentalia",
     description: `Mental wellness app with emotional tracker, psychologist access and a
         community platform. Full-stack MERN application.`,
+    descriptionExtend:
+      "Mentalia is a mental wellness application that helps people look after their emotional health. Users can track how they feel over time with a mood tracker, book and access sessions with professional psychologists, and take part in a supportive community where they can share experiences in a safe space. It was built as a full-stack MERN application, with a calm and accessible interface designed to make emotional self-care feel approachable.",
+    rol: "I worked across the full stack: building a dynamic, component-based React interface, implementing the emotional tracker and community features, and developing the Node.js and Express backend with a MongoDB database and JWT-based authentication. I also made sure the app was fully responsive for a smooth experience on any device.",
     technologies: [
       "React",
       "JavaScript",
@@ -35,6 +38,9 @@ export const PROJECTS = [
     title: "Adulting.app",
     description: `Local-first, mobile-first PWA to manage shared household finances,
         offline-first. Built with React 19, TypeScript, in-browser SQLite and Google Sheets sync.`,
+    descriptionExtend:
+      "Adulting.app is a local-first, mobile-first PWA that lets two people manage their shared and household finances together. It tracks balances, recurring expenses, debts and internal settlements, works fully offline, and syncs to Google Sheets. Financial data lives on-device in a browser SQLite database, keeping the app fast and private while remaining installable on both Android and iOS.",
+    rol: "I designed and built the entire application: a React 19 and TypeScript front end with a custom design system, an in-browser SQLite (WASM) data layer persisted through OPFS, offline-first PWA behaviour with Workbox, bidirectional Google Sheets synchronisation, and internationalisation in English and Spanish. I also documented the architecture with ADRs and kept the financial calculations pure and unit-tested.",
     technologies: [
       "React 19",
       "TypeScript",
