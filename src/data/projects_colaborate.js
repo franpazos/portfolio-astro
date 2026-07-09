@@ -1,5 +1,19 @@
 export const PROJECTSC = [
   {
+    image: "/Assets/spinMyRoster/spin-my-roster-logo.png",
+    title: "Spin My Roster",
+    description:
+      "A slot-machine-style NFL roster-building game. Spin a reel to draft teams and players. Built with Next.js, Tailwind and the ESPN APIs.",
+    link: "https://spinmyroster.vercel.app/",
+  },
+  {
+    image: "/Assets/adultingApp/adulting-app-logo.png",
+    title: "Adulting.app",
+    description:
+      "A local-first, mobile-first PWA for two users to manage shared household finances, offline-ready. Built with React 19, TypeScript, in-browser SQLite and Google Sheets sync.",
+    link: "https://github.com/franpazos/adulting-app",
+  },
+  {
     image: "/Assets/myBookWishlist/book-wishlist-logo.png",
     title: "My Book Wishlist",
     description:
