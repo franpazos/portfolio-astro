@@ -6,7 +6,7 @@ export const EXPERIENCE = [
     startDate: "August 2024",
     endDate: "Current",
     description:
-      "Full-stack Software Engineer on PayCargo, the leading online payment platform for the global cargo industry, working within a global, English-speaking agile team. I started out helping migrate a legacy Angular application to a new React platform, delivering full-stack features end to end — from Figma designs on the front end down to the backend and SQL. As the company scaled globally I was selected for a squad focused on integrations with PayCargo's key clients, where my work is now backend-focused: architecting vendor connections through APIs and web scraping, including a new scheduled-payments flow for several Hong Kong carriers.",
+      `Full-stack Software Engineer on <a href="https://www.paycargo.com" target="_blank" rel="noopener" class="paycargo-link">PayCargo</a>, the leading online payment platform for the global cargo industry, working within a global, English-speaking agile team. I started out helping migrate a legacy Angular application to a new React platform, delivering full-stack features end to end — from Figma designs on the front end down to the backend and SQL. As the company scaled globally I was selected for a squad focused on integrations with PayCargo's key clients, where my work is now backend-focused: architecting vendor connections through APIs and web scraping, including a new scheduled-payments flow for several Hong Kong carriers.`,
   },
   {
     title: "Star Wash",
