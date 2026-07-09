@@ -11,8 +11,8 @@ const isSingleProject = PROJECTS.length === 1;
     <div class="projects-container">
         <div class="title-container">
             <h2>Projects</h2>
-            <h3>Hackshow Winner</h3>
-        </div>   
+            <h3>Featured</h3>
+        </div>
         <div class={`cards-container ${isSingleProject ? 'single' : ''}`}>
             {PROJECTS.map(project => (
                 <CardProject classList={['card-project', 'project-element']} {...project} />

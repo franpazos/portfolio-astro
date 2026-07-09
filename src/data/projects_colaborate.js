@@ -7,13 +7,6 @@ export const PROJECTSC = [
     link: "https://spinmyroster.vercel.app/",
   },
   {
-    image: "/Assets/adultingApp/adulting-app-logo.png",
-    title: "Adulting.app",
-    description:
-      "A local-first, mobile-first PWA for two users to manage shared household finances, offline-ready. Built with React 19, TypeScript, in-browser SQLite and Google Sheets sync.",
-    link: "https://github.com/franpazos/adulting-app",
-  },
-  {
     image: "/Assets/myBookWishlist/book-wishlist-logo.png",
     title: "My Book Wishlist",
     description:

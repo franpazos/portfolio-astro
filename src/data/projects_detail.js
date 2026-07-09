@@ -5,12 +5,11 @@ export const PROJECTS = [
     image: "/Assets/mentalia/mentalia-logo.png",
     image2: "/Assets/mentalia/iPhone13.png",
     imageD: "/Assets/mentalia/iPhone13.png",
+    link: "https://mentalia.netlify.app",
+    award: "Hackshow Winner",
     title: "Mentalia",
     description: `Mental wellness app with emotional tracker, psychologist access and a
         community platform. Full-stack MERN application.`,
-    descriptionExtend:
-      "Avocado es una aplicación web diseñada para que los usuarios registrados creen y compartan recetas con la comunidad y puedan adquirir suscripciones de servicios. Esto permite explorar nuevos sabores y fomentar la creatividad culinaria. Los usuarios pueden descubrir sugerencias en el feed de la aplicación y guardar sus recetas favoritas para un acceso conveniente. Además, pueden aprovechar las funciones de búsqueda y filtrado para resultados específicos en sus exploraciones culinarias. Nuestro enfoque estaba en crear una plataforma atractiva y funcional, trabajamos en estrecha colaboración para garantizar que el sitio web refleje la idea que teníamos en mente.",
-    rol: "Desarrollé una interfaz de usuario dinámica y altamente interactiva utilizando Angular, creando componentes personalizados para mejorar tanto el atractivo visual como la funcionalidad. Además, me aseguré de que la página fuera totalmente adaptable a varios dispositivos, garantizando así una experiencia óptima para todos los usuarios.",
     technologies: [
       "React",
       "JavaScript",
@@ -24,6 +23,28 @@ export const PROJECTS = [
       "Bcrypt",
       "Axios",
       "Bootstrap",
+    ],
+  },
+  {
+    slug: "adulting",
+    date: "2026",
+    image: "/Assets/adultingApp/adulting-app-logo.png",
+    image2: "/Assets/adultingApp/adulting-app-mockup.png",
+    imageD: "/Assets/adultingApp/adulting-app-mockup.png",
+    link: "https://github.com/franpazos/adulting-app",
+    title: "Adulting.app",
+    description: `Local-first, mobile-first PWA to manage shared household finances,
+        offline-first. Built with React 19, TypeScript, in-browser SQLite and Google Sheets sync.`,
+    technologies: [
+      "React 19",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "SQLite (WASM)",
+      "Zustand",
+      "i18next",
+      "PWA",
+      "Vercel",
     ],
   },
 ];

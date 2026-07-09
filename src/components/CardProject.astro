@@ -1,14 +1,15 @@
 ---
-const {slug, image, image2, title, description, github, classList = [] } = Astro.props;
+const {slug, image, image2, title, description, link = "#", award, classList = [] } = Astro.props;
 ---
 
-<a href={`https://mentalia.netlify.app`} class="link-detail-proyect" target="_blank">
+<a href={link} class="link-detail-proyect" target="_blank">
     <article class={["card-container", ...classList].join(' ')}>
         <div class="card">
+            {award && <span class="award-badge">{award}</span>}
             <div class="wrapper">
                 <img src={image} class="cover-image" alt={`${title} cover`} />
             </div>
-            <img src={image2} class="character" alt={`${title} character`} />                           
+            {image2 && <img src={image2} class="character" alt={`${title} character`} />}
         </div>
         <div class="description-container">
             <h4>{title}</h4>
@@ -17,7 +18,24 @@ const {slug, image, image2, title, description, github, classList = [] } = Astro
     </article>
 </a>
 
-<style> 
+<style>
+    .award-badge{
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 3;
+        background-color: #eb6904;
+        color: #13151a;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 4px 12px 0px;
+        pointer-events: none;
+    }
+
     .card-container{
         display: flex;
         flex-direction: column;
