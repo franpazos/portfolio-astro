@@ -21,19 +21,33 @@ const {slug, image, image2, title, description, link = "#", award, classList = [
 <style>
     .award-badge{
         position: absolute;
-        top: 12px;
-        left: 12px;
+        top: 14px;
+        left: 14px;
         z-index: 3;
-        background-color: #eb6904;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background-image: linear-gradient(135deg, #ffb020 0%, #eb6904 100%);
         color: #13151a;
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         font-weight: 800;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
-        padding: 6px 12px;
+        letter-spacing: 0.4px;
+        padding: 7px 14px;
         border-radius: 20px;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 4px 12px 0px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 4px 16px rgba(235, 105, 4, 0.55), 0 2px 4px rgba(0, 0, 0, 0.35);
         pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+
+    .award-badge::before{
+        content: "🏆";
+        font-size: 0.9rem;
+    }
+
+    .card:hover .award-badge{
+        opacity: 0;
     }
 
     .card-container{
