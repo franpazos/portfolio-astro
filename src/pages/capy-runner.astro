@@ -1,0 +1,576 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+// Static: it is a canvas game, there is nothing for the server to render.
+export const prerender = true;
+---
+
+<Layout
+  title="Capy Runner — how many digits of π can you remember?"
+  description="A neon-synthwave remake of the classic Pi Runner. Type the digits of π to lay planks ahead of a walking capybara. One wrong digit and it falls."
+  hideNavbarFooter={true}
+>
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+  />
+
+  <main class="shell">
+    <header class="topbar">
+      <a class="back" href="/">&larr; fran pazos</a>
+      <button id="mute" class="chip" type="button" aria-pressed="false">SOUND ON</button>
+    </header>
+
+    <div class="stage" id="stage">
+      <div class="hud">
+        <div class="hud-block">
+          <span class="hud-label">SCORE</span>
+          <span class="hud-value" id="hud-score">0</span>
+        </div>
+        <div class="hud-block hud-right">
+          <span class="hud-label">BEST</span>
+          <span class="hud-value" id="hud-best">0</span>
+          <span class="hud-label pips-label">BRIDGE</span>
+          <span class="pips" id="hud-pips" aria-hidden="true">
+            {Array.from({ length: 6 }).map(() => <span class="pip"></span>)}
+          </span>
+        </div>
+      </div>
+
+      <canvas
+        id="capy-canvas"
+        width="480"
+        height="270"
+        role="img"
+        aria-label="A pixel capybara walking across a bridge of planks over a neon grid"></canvas>
+
+      <div class="crt" aria-hidden="true"></div>
+
+      <div class="tape" id="hud-tape"></div>
+
+      <div class="overlay" id="overlay-start" hidden>
+        <h1 class="title">CAPY&nbsp;RUNNER</h1>
+        <p class="lede">
+          Type <span class="pi">π</span> one digit at a time, starting with the
+          <span class="pi">3</span>.
+        </p>
+        <p class="hint">
+          She walks whether you type or not. Run out of planks and she drops.<br />
+          A wrong digit freezes you for one second &mdash; she keeps walking.
+        </p>
+        <p class="cta">START TYPING &mdash; <span class="pi">3</span> 1 4 1 5 9 …</p>
+      </div>
+
+      <div class="overlay" id="overlay-over" hidden>
+        <h2 class="title" id="over-title">GAME OVER</h2>
+        <p class="reason" id="over-reason"></p>
+        <div class="scores">
+          <div><span class="hud-label">DIGITS</span><span class="big" id="over-score">0</span></div>
+          <div><span class="hud-label">SLIPS</span><span class="big slips" id="over-mistakes">0</span></div>
+          <div><span class="hud-label">BEST</span><span class="big" id="over-best">0</span></div>
+        </div>
+        <p class="hud-label">WHAT CAME NEXT</p>
+        <p class="next" id="over-next">—</p>
+        <button class="chip retry" type="button" data-retry>PRESS R TO RETRY</button>
+      </div>
+    </div>
+
+    <div class="keypad" id="keypad">
+      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((digit) => (
+        <button type="button" data-digit={String(digit)}>{digit}</button>
+      ))}
+    </div>
+
+    <footer class="foot">
+      <p>
+        After the 2009 Flash game <b>Pi Runner</b> by Spiked Math — same mechanic, different
+        animal, and a wrong digit costs you a second rather than the run. Canvas 2D, no engine,
+        no dependencies, no image or audio files: the capybara and the sound are both generated
+        in code.
+      </p>
+    </footer>
+  </main>
+</Layout>
+
+<script>
+  import "@/game/main";
+</script>
+
+<style>
+  .shell {
+    --magenta: #ff2e97;
+    --cyan: #00e5ff;
+    --violet: #7b2ff7;
+    --amber: #ffd166;
+    --ink: #0b0416;
+    font-family: "Press Start 2P", ui-monospace, monospace;
+    min-height: 100dvh;
+    background: radial-gradient(circle at 50% 0%, #24073a 0%, var(--ink) 60%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding: 14px 12px 32px;
+    color: #fff;
+  }
+
+  .topbar {
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .back,
+  .chip {
+    font-family: inherit;
+    font-size: 0.6rem;
+    letter-spacing: 0.5px;
+    color: var(--cyan);
+    background: rgba(0, 229, 255, 0.07);
+    border: 1px solid rgba(0, 229, 255, 0.45);
+    border-radius: 4px;
+    padding: 9px 12px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  }
+
+  .back:hover,
+  .chip:hover {
+    background: rgba(0, 229, 255, 0.18);
+    box-shadow: 0 0 14px rgba(0, 229, 255, 0.35);
+  }
+
+  /* ------------------------------- stage -------------------------------- */
+
+  .stage {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    aspect-ratio: 16 / 9;
+    border: 2px solid rgba(255, 46, 151, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--ink);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.8), 0 0 48px rgba(123, 47, 247, 0.35),
+      inset 0 0 60px rgba(0, 0, 0, 0.6);
+  }
+
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* Nearest-neighbour upscale: the whole point of a 480x270 backing store. */
+    image-rendering: pixelated;
+  }
+
+  /* Scanlines and vignette live in CSS so they stay 1 screen pixel thin
+     instead of being blown up with the rest of the canvas. */
+  .crt {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.22) 0 1px,
+        transparent 1px 3px
+      ),
+      radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+    mix-blend-mode: multiply;
+  }
+
+  .stage.is-dying canvas {
+    animation: aberrate 0.45s steps(3) 1;
+  }
+
+  /* Frozen after a wrong digit. The frame goes hostile for the full second so
+     the penalty is legible even from the corner of your eye. */
+  .stage.is-stunned {
+    border-color: rgba(255, 46, 151, 0.95);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.8), 0 0 48px rgba(255, 46, 151, 0.5),
+      inset 0 0 70px rgba(255, 46, 151, 0.28);
+  }
+
+  @keyframes aberrate {
+    0% {
+      filter: drop-shadow(3px 0 0 rgba(255, 0, 80, 0.85)) drop-shadow(-3px 0 0 rgba(0, 229, 255, 0.85));
+    }
+    100% {
+      filter: none;
+    }
+  }
+
+  /* -------------------------------- hud --------------------------------- */
+
+  .hud {
+    position: absolute;
+    inset: 10px 12px auto 12px;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    pointer-events: none;
+  }
+
+  .hud-block {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .hud-right {
+    justify-content: flex-end;
+  }
+
+  .hud-label {
+    font-size: 0.5rem;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 1px;
+  }
+
+  .hud-value {
+    font-size: 0.95rem;
+    color: var(--amber);
+    text-shadow: 0 0 10px rgba(255, 209, 102, 0.7);
+  }
+
+  .pips-label {
+    margin-left: 6px;
+  }
+
+  .pips {
+    display: inline-flex;
+    gap: 3px;
+  }
+
+  .pip {
+    display: block;
+    width: 7px;
+    height: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: transparent;
+  }
+
+  .pip.on[data-level="safe"] {
+    background: #3ddc84;
+    box-shadow: 0 0 8px #3ddc84;
+    border-color: #3ddc84;
+  }
+
+  .pip.on[data-level="warn"] {
+    background: var(--amber);
+    box-shadow: 0 0 8px var(--amber);
+    border-color: var(--amber);
+  }
+
+  .pip.on[data-level="danger"] {
+    background: var(--magenta);
+    box-shadow: 0 0 10px var(--magenta);
+    border-color: var(--magenta);
+    animation: pulse 0.45s infinite alternate;
+  }
+
+  @keyframes pulse {
+    to {
+      opacity: 0.35;
+    }
+  }
+
+  /* -------------------------------- tape -------------------------------- */
+
+  .tape {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 2;
+    padding: 9px 12px 10px;
+    font-size: 0.72rem;
+    letter-spacing: 3px;
+    text-align: right;
+    color: var(--cyan);
+    text-shadow: 0 0 12px rgba(0, 229, 255, 0.65);
+    background: linear-gradient(to top, rgba(11, 4, 22, 0.92), transparent);
+    white-space: nowrap;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  /* ------------------------------ overlays ------------------------------ */
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 18px;
+    text-align: center;
+    background: rgba(8, 3, 16, 0.86);
+    backdrop-filter: blur(2px);
+  }
+
+  .overlay[hidden] {
+    display: none;
+  }
+
+  .title {
+    font-size: clamp(1rem, 3.4vw, 1.9rem);
+    line-height: 1.4;
+    background-image: linear-gradient(180deg, var(--amber) 0%, var(--magenta) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 18px rgba(255, 46, 151, 0.5));
+  }
+
+  .lede {
+    font-size: 0.66rem;
+    line-height: 1.9;
+    color: #fff;
+  }
+
+  .hint,
+  .cta,
+  .reason,
+  .next {
+    font-size: 0.55rem;
+    line-height: 2.1;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .cta {
+    color: var(--cyan);
+    text-shadow: 0 0 12px rgba(0, 229, 255, 0.6);
+  }
+
+  .pi {
+    color: var(--amber);
+  }
+
+  .reason {
+    font-size: 0.62rem;
+    color: #fff;
+  }
+
+  .reason :global(b.bad) {
+    color: var(--magenta);
+  }
+
+  .reason :global(b.good) {
+    color: #3ddc84;
+  }
+
+  .scores {
+    display: flex;
+    gap: 34px;
+  }
+
+  .scores div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .big {
+    font-size: 1.5rem;
+    color: var(--amber);
+    text-shadow: 0 0 14px rgba(255, 209, 102, 0.7);
+  }
+
+  .big.slips {
+    color: var(--magenta);
+    text-shadow: 0 0 14px rgba(255, 46, 151, 0.7);
+  }
+
+  /* The digits you were about to need are the takeaway from a lost run, so they
+     get the largest type on the panel. The tight line-height buys most of the
+     extra size back — the shared rule above sets 2.1, which is far too loose
+     for a single line of big numerals. */
+  .next {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    letter-spacing: 9px;
+    color: #3ddc84;
+    text-shadow: 0 0 16px rgba(61, 220, 132, 0.7);
+  }
+
+  .retry {
+    margin-top: 4px;
+    color: var(--magenta);
+    border-color: rgba(255, 46, 151, 0.6);
+    background: rgba(255, 46, 151, 0.1);
+  }
+
+  .retry:hover {
+    background: rgba(255, 46, 151, 0.22);
+    box-shadow: 0 0 16px rgba(255, 46, 151, 0.45);
+  }
+
+  /* ------------------------------- keypad ------------------------------- */
+
+  /* Touch devices get real buttons; a keyboard-only game is unplayable on a
+     phone, and this page is linked from a mobile-first portfolio. */
+  .keypad {
+    display: none;
+    width: 100%;
+    max-width: 420px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+
+  .keypad button {
+    font-family: inherit;
+    font-size: 1.05rem;
+    padding: 16px 0;
+    color: var(--cyan);
+    background: rgba(0, 229, 255, 0.08);
+    border: 1px solid rgba(0, 229, 255, 0.4);
+    border-radius: 6px;
+    touch-action: manipulation;
+    cursor: pointer;
+  }
+
+  .keypad button:active {
+    background: rgba(0, 229, 255, 0.3);
+    box-shadow: 0 0 14px rgba(0, 229, 255, 0.5);
+  }
+
+  @media (pointer: coarse) {
+    .keypad {
+      display: grid;
+    }
+  }
+
+  /* -------------------------------- foot -------------------------------- */
+
+  .foot {
+    max-width: 720px;
+  }
+
+  .foot p {
+    font-family: "Raleway", sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.45);
+    text-align: center;
+  }
+
+  .foot b {
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  /* On a phone the 16:9 stage is only ~200px tall, so the overlays have to
+     shrink to fit inside it rather than overflowing out of a centred flex box
+     (where the top is clipped and unreachable). */
+  @media (max-width: 640px) {
+    .shell {
+      gap: 12px;
+      padding: 10px 10px 24px;
+    }
+
+    .hud-block {
+      gap: 6px;
+    }
+
+    .pips-label {
+      display: none;
+    }
+
+    .tape {
+      font-size: 0.58rem;
+      letter-spacing: 2px;
+      padding: 6px 8px 7px;
+    }
+
+    /* A 16:9 stage on a phone is only ~200px tall, which is not enough for the
+       game-over panel — and RETRY is the only way to restart without a
+       keyboard, so it must never need scrolling to reach. Give the stage 4:3
+       and letterbox the canvas inside it; the bands read as an arcade bezel and
+       the HUD already lives there. The playfield itself is unchanged. */
+    .stage {
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+    }
+
+    canvas {
+      height: auto;
+      aspect-ratio: 16 / 9;
+      margin: auto 0;
+    }
+
+    .overlay {
+      gap: 6px;
+      padding: 8px;
+      justify-content: safe center;
+      overflow-y: auto;
+    }
+
+    .title {
+      font-size: 0.88rem;
+    }
+
+    .lede {
+      font-size: 0.5rem;
+      line-height: 1.7;
+    }
+
+    .hint {
+      font-size: 0.44rem;
+      line-height: 1.7;
+    }
+
+    .cta {
+      font-size: 0.46rem;
+      line-height: 1.6;
+    }
+
+    .reason {
+      font-size: 0.5rem;
+      line-height: 1.6;
+    }
+
+    .scores {
+      gap: 16px;
+    }
+
+    .scores div {
+      gap: 4px;
+    }
+
+    .big {
+      font-size: 0.95rem;
+    }
+
+    .next {
+      font-size: 1.05rem;
+      letter-spacing: 4px;
+    }
+
+    .retry {
+      font-size: 0.48rem;
+      padding: 7px 9px;
+    }
+
+    .keypad {
+      gap: 6px;
+    }
+
+    .keypad button {
+      font-size: 0.85rem;
+      padding: 13px 0;
+    }
+
+    .foot p {
+      font-size: 0.72rem;
+      line-height: 1.6;
+    }
+  }
+</style>

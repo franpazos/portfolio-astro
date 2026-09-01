@@ -1,5 +1,12 @@
 export const PROJECTSC = [
   {
+    image: "/Assets/capyRunner/capy-runner-logo.svg",
+    title: "Capy Runner",
+    description:
+      "How many digits of \u03c0 can you remember? A neon-synthwave remake of the 2009 Flash game Pi Runner. Canvas 2D, no engine, no dependencies.",
+    link: "/capy-runner",
+  },
+  {
     image: "/Assets/spinMyRoster/spin-my-roster-logo.png",
     title: "Spin My Roster",
     description:
