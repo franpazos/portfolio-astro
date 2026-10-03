@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300" role="img" aria-label="Parnassus: a golden mountain formed from leaning book spines over a misty slate horizon">
+  <defs>
+    <linearGradient id="psky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4E6480"/>
+      <stop offset="0.5" stop-color="#2B313D"/>
+      <stop offset="1" stop-color="#171B24"/>
+    </linearGradient>
+    <radialGradient id="pdawn" cx="0.5" cy="0.42" r="0.5">
+      <stop offset="0" stop-color="#CBB88A" stop-opacity="0.55"/>
+      <stop offset="0.45" stop-color="#CBB88A" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#CBB88A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pmist" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F1EDE5" stop-opacity="0"/>
+      <stop offset="1" stop-color="#F1EDE5" stop-opacity="0.08"/>
+    </linearGradient>
+    <linearGradient id="pgold" x1="0" y1="11" x2="0" y2="88" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E6D8B4"/>
+      <stop offset="1" stop-color="#B49A63"/>
+    </linearGradient>
+    <clipPath id="pframe"><rect x="0" y="0" width="300" height="300" rx="20"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#pframe)">
+    <!-- warm slate sky -->
+    <rect x="0" y="0" width="300" height="300" fill="url(#psky)"/>
+
+    <!-- faint oversized serif P, editorial texture (echoes the Parnassus hero) -->
+    <text x="150" y="232" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="300" fill="#F1EDE5" fill-opacity="0.03">P</text>
+
+    <!-- dawn glow behind the peak -->
+    <ellipse cx="150" cy="128" rx="150" ry="115" fill="url(#pdawn)"/>
+
+    <!-- a few quiet gold stars -->
+    <g fill="#CBB88A">
+      <circle cx="54" cy="52" r="1.6" fill-opacity="0.55"/>
+      <circle cx="238" cy="44" r="1.6" fill-opacity="0.5"/>
+      <circle cx="268" cy="96" r="1.3" fill-opacity="0.4"/>
+      <circle cx="34" cy="108" r="1.3" fill-opacity="0.4"/>
+      <circle cx="210" cy="70" r="1.1" fill-opacity="0.35"/>
+    </g>
+
+    <!-- misty horizon -->
+    <rect x="0" y="176" width="300" height="48" fill="url(#pmist)"/>
+    <line x1="0" y1="200.5" x2="300" y2="200.5" stroke="#CBB88A" stroke-opacity="0.45" stroke-width="1"/>
+
+    <!-- the Leaning Spine mark: book spines rising into a mountain peak -->
+    <g transform="translate(68,50) scale(1.7)" fill="none" stroke="url(#pgold)" stroke-linecap="butt">
+      <path d="M14 88L14 60" stroke-width="11"/>
+      <path d="M35 88L35 36" stroke-width="14"/>
+      <path d="M57 88L57 11" stroke-width="10"/>
+      <path d="M82 88L59 26" stroke-width="12"/>
+    </g>
+
+    <!-- soft reflection of the mark below the horizon -->
+    <g transform="translate(68,352) scale(1.7,-1.7)" fill="none" stroke="#CBB88A" stroke-opacity="0.08" stroke-linecap="butt">
+      <path d="M14 88L14 60" stroke-width="11"/>
+      <path d="M35 88L35 36" stroke-width="14"/>
+      <path d="M57 88L57 11" stroke-width="10"/>
+      <path d="M82 88L59 26" stroke-width="12"/>
+    </g>
+
+    <!-- frame edge -->
+    <rect x="0" y="0" width="300" height="300" rx="20" fill="none" stroke="#CBB88A" stroke-opacity="0.45" stroke-width="2"/>
+  </g>
+</svg>

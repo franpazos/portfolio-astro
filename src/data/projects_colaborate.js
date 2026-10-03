@@ -1,5 +1,12 @@
 export const PROJECTSC = [
   {
+    image: "/Assets/parnassus/parnassus-logo.svg",
+    title: "Parnassus",
+    description:
+      "A quiet place to read together. Parnassus runs your book club end to end — a shared wishlist, four ways to pick the next read (turns, vote, random, or admin), per-member reading progress, and a threaded discussion wall, all in one calm, literary home. Built with Next.js 16, Prisma & Postgres.",
+    link: "https://parnassusclub.vercel.app/",
+  },
+  {
     image: "/Assets/capyRunner/capy-runner-logo.svg",
     title: "Capy Runner",
     description:
