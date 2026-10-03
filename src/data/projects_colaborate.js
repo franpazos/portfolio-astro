@@ -31,14 +31,14 @@ export const PROJECTSC = [
     image: "/Assets/ironInvaders/iron-invaders-logo.png",
     title: "Iron Invaders",
     description:
-      "An homage to the classic Space Invaders game, built with HTML, CSS and JavaScript.",
+      "An homage to the classic Space Invaders game, built with HTML, CSS and JavaScript vanilla.",
     link: "https://franpazos.github.io/",
   },
   {
     image: "/Assets/javascriptQuiz/js-quiz-light.jpeg",
     title: "JavaScript Quiz",
     description:
-      "Test your JavaScript knowledge with this quiz. Built React and TypeScript.",
+      "Test your JavaScript knowledge with this quiz. Built with React and TypeScript. Powered by Zustand.",
     link: "https://javaescript-quiz.netlify.app/",
   },
 ];
